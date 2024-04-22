@@ -13,5 +13,5 @@ pip install -r requirements.txt
 - Then run pub.py and sub.py
 
 ## TODO
-- [ ] AWS Broker
+- [x] AWS/HiveMQ Broker
 - [ ] Config for ESP32
