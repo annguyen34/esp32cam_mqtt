@@ -13,5 +13,6 @@ pip install -r requirements.txt
 - Then run pub.py and sub.py
 
 ## TODO
-- [x] AWS/HiveMQ Broker
-- [ ] Config for ESP32
+- [x] HiveMQ Broker
+- [x] Config for ESP32
+- [x] Connect to local broker (Ubuntu Mosquitto)

@@ -14,18 +14,21 @@ client = paho.Client()
 # Connect to broker
 #client.connect(mqtt_broker, mqtt_port)
 
-client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+# Set ssl protocol to TLSv1_2 if using HiveMQ Cloud
+# client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
 # set username and password
-client.username_pw_set(os.getenv("USER"), os.getenv("PASSWORD"))
+client.username_pw_set(os.getenv("UBUNTU_USER"), os.getenv("UBUNTU_PASSWORD"))
 #connect to HiveMQ Cloud on port 8883 (default for MQTT)
-client.connect(os.getenv("CLUSTER"),int(os.getenv("PORT")))
+client.connect(os.getenv("UBUNTU_CLUSTER"),int(os.getenv("UBUNTU_PORT")))
+
+print('Connected to MQTT broker')
 
 # Webcam
-webcam = cv2.VideoCapture(0)
+webcam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 while True:
     print("Sending...")    
-    # Read frame from webcam
+    # Read frame from webcam    
     ret, frame = webcam.read()
     if not ret:
         print("Failed to read frame")
@@ -42,7 +45,7 @@ while True:
     print('Size of resized: ', resized_frame.itemsize * resized_frame.size)
 
     # Encode parameters
-    encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 50]  
+    encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 100]  
 
     # Encode frame to base64
     retval, buffer = cv2.imencode('.jpg', resized_frame, encode_param)

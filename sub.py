@@ -48,12 +48,12 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 
-# Set ssl protocol
-client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+# Set ssl protocol to TLSv1_2 if using HiveMQ Cloud
+# client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
 # set username and password
-client.username_pw_set(os.getenv("USER"), os.getenv("PASSWORD"))
+client.username_pw_set(os.getenv("UBUNTU_USER"), os.getenv("UBUNTU_PASSWORD"))
 #connect to HiveMQ Cloud on port 8883 (default for MQTT)
-client.connect(os.getenv("CLUSTER"),int(os.getenv("PORT")))
+client.connect(os.getenv("UBUNTU_CLUSTER"),int(os.getenv("UBUNTU_PORT")))
 
 # Listen to the topic
 client.loop_forever()
